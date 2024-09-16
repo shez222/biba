@@ -1,0 +1,36 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('notifications','ScreenTitle')}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 171" width="210" height="171">
+          <path id="line 1" fill="#5734ac" d="m0 5c0-2.8 2.2-5 5-5h150c2.8 0 5 2.2 5 5v12c0 2.8-2.2 5-5 5h-150c-2.8 0-5-2.2-5-5z"/>
+          <path id="line 2" fill="#5734ac" d="m0 80c0-2.8 2.2-5 5-5h200c2.8 0 5 2.2 5 5v12c0 2.8-2.2 5-5 5h-200c-2.8 0-5-2.2-5-5z"/>
+          <path id="line 3" fill="#5734ac" d="m0 154c0-2.8 2.2-5 5-5h100c2.8 0 5 2.2 5 5v12c0 2.8-2.2 5-5 5h-100c-2.8 0-5-2.2-5-5z"/>
+        </svg>
+        <app-notification-badge></app-notification-badge>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!--REFRESHER-->
+	<ion-refresher slot="fixed" (ionRefresh)="ShowUpdatedContent($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<!--REFRESHER-->
+  <div class="mainDiv">
+    <p *ngIf="ResponseData.length == 0" class="no-information">{{translation.trans('notifications','NoRecord')}}</p>
+    <ion-grid *ngIf="ResponseData.length > 0">
+      <ion-row *ngFor="let Notification of ResponseData;" (click)="ShowNotification(Notification.id)">
+        <ion-col size="10">{{Notification.title}}</ion-col>
+        <ion-col size="2">
+          <ion-icon name="mail-open" *ngIf="Notification.is_read==1" [ngClass]="{'readed' : Notification.is_read==1}"></ion-icon>
+          <ion-icon name="mail" *ngIf="Notification.is_read==0" [ngClass]="{'un-readed' : Notification.is_read==0}"></ion-icon>
+        </ion-col>
+        <ion-col size="12">{{Notification.date}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

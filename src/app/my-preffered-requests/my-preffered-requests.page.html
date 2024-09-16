@@ -1,0 +1,74 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Search profiles</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="ProfileForm" (ngSubmit)="UpdateProfile(ProfileForm.value)">
+    <ion-list>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input type="number" inputmode="number" placeholder="Minimum range of service" formControlName="min_range_km"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.min_range_km">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('min_range_km').hasError(validation.type) && (ProfileForm.get('min_range_km').dirty || ProfileForm.get('min_range_km').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input type="number" inputmode="number" placeholder="Maximum range of service" formControlName="max_range_km"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.max_range_km">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('max_range_km').hasError(validation.type) && (ProfileForm.get('max_range_km').dirty || ProfileForm.get('max_range_km').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-select label="Type" labelPlacement="floating" formControlName="child_type" multiple="true">
+          <ion-select-option value="male">Newborn (up to 12 months)</ion-select-option>
+          <ion-select-option value="female">Toddler (1-4 years)</ion-select-option>
+          <ion-select-option value="not_to_say">Pre-school child (4-6 years)</ion-select-option>
+          <ion-select-option value="not_to_say">Schoolchild (from 6 years)</ion-select-option>
+        </ion-select>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.child_type">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('child_type').hasError(validation.type) && (ProfileForm.get('child_type').dirty || ProfileForm.get('child_type').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input type="number" inputmode="number" placeholder="Minimum price of service" formControlName="min_price"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="btn-item">
+        <ion-button color="" type="submit" class="log-btn" [disabled]="!ProfileForm.valid">Save</ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,199 @@
+ion-content {
+    form {
+        max-width: 340px;
+        width: 100%;
+        padding: 40px 15px;
+        margin: 0 auto;
+        ion-thumbnail {
+            --size: 90px;
+            width: 90px;
+            height: 90px;
+            aspect-ratio: 1/1;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+        h1 {
+            &.logo {
+                width: 100%;
+                text-align: center;
+                padding: 0;
+                margin: 0;
+                position: relative;
+                font-size: 40px;
+                line-height: 1.2;
+                color: #5734ac;
+                font-family: var(--font-Baloo);
+            }
+        }
+        h2 {
+            width: 100%;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            font-size: 26px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Balsamiq_Sans);
+            font-weight: 400;
+            position: relative;
+        }
+        .logo-main {
+            width: 100%;
+            text-align: center;
+            margin: 0 0 36px;
+            img {
+                max-width: 100%;
+                width: auto;
+                height: auto;
+                max-height: 110px;
+                object-fit: contain;
+            }
+        }
+        .hide-me{
+            display: none;
+        }
+        ion-list {
+            position: relative;
+            padding: 0px;
+            &.hide-me{
+                display: none;
+            }
+            ion-item {
+                position: relative;
+                overflow: visible;
+                margin: 0 0 15px;
+                svg {
+                    &.pw {
+                        position: absolute;
+                        // top: 27.5px;
+                        top: 17px;
+                        right: 25px;
+                        z-index: 2;
+                        fill: #aba8af;
+                        &.pw-show {}
+                        &.pw-hide {}
+                        @media(max-width:374px) {
+                            // top: 22px;
+                            top: 11px;
+                        }
+                    }
+                }
+                ion-label {
+                    //font-size: 18px;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    color: var(--txt-gray);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    margin: 0 0 4px;
+                    transform: unset !important;
+                    -webkit-transform: unset !important;
+                    -moz-transform: unset !important;
+                    -ms-transform: unset !important;
+                    -o-transform: unset !important;
+                    @media(max-width:374px) {
+                        font-size: 16px;
+                    }
+                    &.fpw {
+                        font-family: var(--font-Roboto-Regular);
+                        color: #019ad6;
+                        text-decoration: underline;
+                        text-align: center;
+                        margin: 25px 0 0;
+                    }
+                }
+                &.btn-item {
+                    margin-top: 25px;
+                }
+                ion-button {
+                    width: 100%;
+                    margin: 0;
+                    height: 55px;
+                    line-height: 55px;
+                    border-radius: 5px;
+                    --border-radius: 5px;
+                    font-size: 20px;
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    @media(max-width:374px) {
+                        font-size: 17px;
+                        height: 44px;
+                        line-height: 44px;
+                    }
+                    &.log-btn {}
+                    &.facebook {
+                        --background: #3b5998;
+                        background: #3b5998;
+                        background-color: #3b5998;
+                        color: var(--white);
+                        margin: 0 0 15px;
+                    }
+                    &.google {
+                        --background: var(--white);
+                        background: var(--white);
+                        background-color: var(--white);
+                        color: var(--txt-gray);
+                    }
+                    ion-icon, svg {
+                        width: 27px;
+                        height: 27px;
+                        margin-right: 8px;
+                    }
+                }
+                p {
+                    width: 100%;
+                    text-align: center;
+                    padding: 0;
+                    margin: 0;
+                    font-size: 18px;
+                    line-height: 1.2;
+                    color: var(--txt-gray);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    position: relative;
+                }
+                a {
+                    text-align: center;
+                    text-decoration: none !important;
+                    margin: 0 auto;
+                    font-size: 18px;
+                    line-height: 1.2;
+                    color: var(--primary);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    position: relative;
+                }
+                .signOther {
+                    p {
+                        margin: 0 0 25px;
+                        &:before,
+                        &:after {
+                            content: '';
+                            width: 40%;
+                            height: 1px;
+                            background-color: var(--txt-gray);
+                            opacity: .2;
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            margin: auto;
+                        }
+                        &:before {
+                            left: 0;
+                        }
+                        &:after {
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

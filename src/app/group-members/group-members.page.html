@@ -1,0 +1,71 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('group-members','ScreenTitle')}} {{GroupName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="DismissModal()">
+        <ion-icon slot="icon-only" color="danger" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="mainDiv">
+    <h2 class="title">{{translation.trans('group-members','AddMember')}} {{GroupName}}</h2>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-radio-group [(ngModel)]="searchType">
+          <ion-item lines="none">
+            <ion-label>{{translation.trans('group-members','email')}}</ion-label>
+            <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="email"></ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>{{translation.trans('group-members','phone')}}</ion-label>
+            <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="phone"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-searchbar
+          placeholder="{{searchType === 'phone' ? translation.trans('group-members','SearchByPhone') : translation.trans('group-members','SearchByEmail')}}"
+          inputmode="{{searchType === 'phone' ? 'tel' : 'email'}}"
+          type="{{searchType === 'phone' ? 'tel' : 'email'}}"
+          [(ngModel)]="AutoComplete!.input"
+          [ngModelOptions]="{standalone: true}"
+          (keyup)="isSearchActive = true"
+          (ionInput)="UpdateSearchResults()"
+          (ionClear)="ClearAutocomplete()"
+          (ionBlur)="isSearchActive = false"
+          [debounce]="2000">
+        </ion-searchbar>
+      </ion-item>
+      <ion-item *ngIf="isSearchActive">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+      </ion-item>
+      <ion-item [ngClass]="{'show-me' : AutoCompleteItemsResponse.result === 1}" class="hide-me">
+        <ion-button type="button" (click)="AddToList()">{{translation.trans('group-members','AddToList')}}</ion-button>
+      </ion-item>
+      <ion-item [ngClass]="{'show-me' : AutoCompleteItemsResponse.result === 0}" class="hide-me">
+        <ion-button type="button" (click)="SendAnInvitation()">{{translation.trans('group-members','SendInvitation')}}</ion-button>
+      </ion-item>
+    </ion-list>
+    <h2 class="title">{{translation.trans('group-members','MembersIn')}} {{GroupName}}</h2>
+    <p *ngIf="MemberResult.length == 0" class="no-information">{{translation.trans('group-members','NoRecord')}}</p>
+    <ion-grid *ngIf="MemberResult.length > 0">
+      <ion-row class="min-height">
+        <ion-col size="9" class="align-center make-bold">{{translation.trans('group-members','Name')}}</ion-col>
+        <ion-col size="3" class="align-center make-bold text-center">{{translation.trans('group-members','Actions')}}</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let GroupMember of MemberResult;">
+        <ion-col size="9" [ngClass]="{'gray': GroupMember.status == 0}">
+          {{ getDisplayName(GroupMember) }}
+        </ion-col>
+        <ion-col size="3" class="align-center text-center">
+          <ion-button fill="clear" (click)="ConfirmedDeletingMember(GroupMember.id)" class="icon-only add-borders">
+            <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

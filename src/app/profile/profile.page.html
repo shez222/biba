@@ -1,0 +1,188 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('profile','ScreenTitle')}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="ProfileForm" (ngSubmit)="UpdateProfile(ProfileForm.value)">
+    <ion-thumbnail *ngIf="UserData.image==''">
+      <img alt="No image" src="../assets/images/no-image-available.png" />
+    </ion-thumbnail>
+    <ion-thumbnail *ngIf="UserData.image!=''">
+      <img alt="{{UserData.first_name}}" src="{{UserData.image}}" />
+    </ion-thumbnail>
+    <app-multi-file-upload></app-multi-file-upload>
+    <ion-input type="hidden" formControlName="latitude" class="hide-me"></ion-input>
+    <ion-input type="hidden" formControlName="longitude" class="hide-me"></ion-input>
+    <ion-input type="hidden" formControlName="address" class="hide-me"></ion-input>
+    <ion-input type="hidden" formControlName="street" class="hide-me"></ion-input>
+    <ion-input type="hidden" formControlName="zipcode" class="hide-me"></ion-input>
+    <ion-input type="hidden" formControlName="city" class="hide-me"></ion-input>
+    <ion-input type="hidden" formControlName="country_code" class="hide-me"></ion-input>
+    <ion-list>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-select label="{{translation.trans('profile','Language')}}" formControlName="language" (ionChange)="changeLanguage()">
+          <ng-container *ngFor="let language of languages">
+            <ion-select-option [value]="language.code">{{language.name}}</ion-select-option>
+          </ng-container>
+        </ion-select>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.language">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('language').hasError(validation.type) && (ProfileForm.get('language').dirty || ProfileForm.get('language').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-select label="{{translation.trans('profile','ProfileType')}}" formControlName="profileType">
+          <ion-select-option value="parent">
+            {{translation.trans('profile','Parent')}}
+          </ion-select-option>
+          <ion-select-option value="babysitter">
+            {{translation.trans('profile','Babysitter')}}
+          </ion-select-option>
+          <ion-select-option value="both">
+            {{translation.trans('profile','Both')}}
+          </ion-select-option>
+        </ion-select>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.profileType">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('profileType').hasError(validation.type) && (ProfileForm.get('profileType').dirty || ProfileForm.get('profileType').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','FirstName')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','FirstName')}}" formControlName="firstname"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.firstname">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('firstname').hasError(validation.type) && (ProfileForm.get('firstname').dirty || ProfileForm.get('firstname').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','Surname')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','Surname')}}" formControlName="lastname"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.lastname">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('lastname').hasError(validation.type) && (ProfileForm.get('lastname').dirty || ProfileForm.get('lastname').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','Phone')}}" labelPlacement="stacked" inputmode="tel" type="tel" placeholder="+41 79 123 45 67" formControlName="phone"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.phone">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('phone').hasError(validation.type) && (ProfileForm.get('phone').dirty || ProfileForm.get('phone').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','DOB')}}" labelPlacement="stacked" type="text" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','DOB')}}" formControlName="date_of_birth" id="DateOfBirth"></ion-input>
+        <ion-popover trigger="DateOfBirth"  (ionChange)="DateSelected($event)">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              [(ngModel)]="CurrentDateForPicker"
+              [ngModelOptions]="{standalone: true}"
+              [preferWheel]="true"
+              [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.date_of_birth">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('date_of_birth').hasError(validation.type) && (ProfileForm.get('date_of_birth').dirty || ProfileForm.get('date_of_birth').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item [ngClass]="{'hide-me' : address !== ''}">
+        <ion-text class="input-wrapper sc-ion-input-md">
+          {{translation.trans('common-signin-signup-fpassword-profile','AddressHint')}}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-searchbar [disabled]="!GoogleAutocomplete"
+          search-icon="business"
+          [(ngModel)]="AutoComplete!.input"
+          [ngModelOptions]="{standalone: true}"
+          (keyup)="isAddressSearchActive = true"
+          (ionInput)="UpdateSearchResults()"
+          placeholder="{{translation.trans('common-signin-signup-fpassword-profile','Address')}}"
+          (ionClear)="ClearAutocomplete()"
+          [debounce]="2000"
+          (ionFocus)="isAddressFieldSelected = true"
+          (ionBlur)="isAddressFieldSelected = false; isAddressSearchActive = false"
+        ></ion-searchbar>
+      </ion-item>
+      <ion-item *ngIf="isAddressSearchActive">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+      </ion-item>
+      <ion-list [ngClass]="{'hide-me' : AutoCompleteItems.length == 0}" class="search-list">
+        <ion-item *ngFor="let item of AutoCompleteItems" tappable (click)="SelectSearchResult(item)">
+          {{ item.description }}
+        </ion-item>
+      </ion-list>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-textarea label="{{translation.trans('profile','AboutME')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('profile','AboutME')}}" formControlName="aboutme" rows="5"></ion-textarea>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.aboutme">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="ProfileForm.get('aboutme').hasError(validation.type) && (ProfileForm.get('aboutme').dirty || ProfileForm.get('aboutme').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none" class="btn-item">
+        <ion-button color="" type="submit" class="log-btn" [disabled]="!ProfileForm.valid">{{translation.trans('profile','Save')}}</ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

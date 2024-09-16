@@ -1,0 +1,45 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('kids','ScreenTitle')}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="AddKid(0,'','')">
+        <ion-icon slot="icon-only" color="primary" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <!--REFRESHER-->
+	<ion-refresher slot="fixed" (ionRefresh)="ShowUpdatedContent($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<!--REFRESHER-->
+  <div class="mainDiv">
+  <p *ngIf="ResponseData.length == 0" class="no-information">{{translation.trans('kids','NoRecord')}}</p>
+  <ion-grid *ngIf="ResponseData.length > 0">
+    <ion-row class="min-height">
+      <ion-col size="5" class="align-center make-bold">{{translation.trans('common-requests-block','Kids_1')}}</ion-col>
+      <ion-col size="4" class="align-center make-bold">{{translation.trans('common-requests-block','Kids_2')}}</ion-col>
+      <ion-col size="3" class="align-center make-bold text-center">{{translation.trans('common-requests-block','Kids_3')}}</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let Kids of ResponseData;">
+      <ion-col size="5" class="align-center">{{Kids.name}}</ion-col>
+      <ion-col size="4">
+        <span *ngIf="Kids.year!=''">{{Kids.year}}</span>
+        <span *ngIf="Kids.month!=''"><br />{{Kids.month}}</span>
+      </ion-col>
+      <ion-col size="3" class="align-center text-center">
+        <ion-button class="add-borders" fill="clear" (click)="AddKid(Kids.id,Kids.name,Kids.date_of_birth)">
+          <ion-icon slot="icon-only" color="warning" name="pencil"></ion-icon>
+        </ion-button>
+        <ion-button class="add-borders" fill="clear" (click)="ConfirmedDeletingKid(Kids.id)">
+          <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+</ion-content>

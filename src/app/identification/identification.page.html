@@ -1,0 +1,100 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('identification','ScreenTitle')}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="mainDiv">
+    <p *ngIf="IdentificationStatus==2" class="verified">
+      <svg class="verification-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#2dd36f" viewBox="0 0 20 20">
+        <path fill="#2dd36f" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+        <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+      </svg>
+      &nbsp;{{translation.trans('identification','VerifiedMessage')}}
+    </p>
+    <ion-card *ngIf="IdentificationStatus==0 && address_needed">
+      <ion-card-header>
+        <ion-card-title>{{translation.trans('identification','Precondition')}}</ion-card-title>
+        <ion-card-subtitle>{{translation.trans('identification','AddAddressBefore')}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item class="item-with-icon" lines="none" (click)="GoToPage('profile')">
+          <div class="icon">
+            <!-- <ion-icon name="create"></ion-icon> -->
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+              <path stroke="var(--secondary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.109 17H1v-2a4 4 0 0 1 4-4h.87M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm7.95 2.55a2 2 0 0 1 0 2.829l-6.364 6.364-3.536.707.707-3.536 6.364-6.364a2 2 0 0 1 2.829 0Z"/>
+            </svg>
+          </div>
+          <ion-label>{{translation.trans('settings','EditProfile')}}</ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="IdentificationStatus!=2 && !address_needed">
+      <div class="verification-identification" [ngClass]="{'unactive' : IdentificationStatus == 0 || IdentificationStatus == 1 || IdentificationStatus == 3}">
+        <svg class="profile-verification" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+          <path stroke="var(--secondary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3.656 12.115a3 3 0 0 1 5.682-.015M13 5h3m-3 3h3m-3 3h3M2 1h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm6.5 4.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+        </svg>
+        <span *ngIf="IdentificationStatus == 0">{{translation.trans('identification','Status_1')}}</span>
+        <span *ngIf="IdentificationStatus == 1">{{translation.trans('identification','Status_2')}}</span>
+        <span *ngIf="IdentificationStatus == 2">{{translation.trans('identification','Status_3')}}</span>
+        <span *ngIf="IdentificationStatus == 3">{{translation.trans('identification','Status_4')}}</span>
+      </div>
+      <img alt="Unidentified" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" *ngIf="IsUserIdentified==0"/>
+      <div *ngFor="let Document of ResultResponseDataDocuments;">
+        <img src="{{Document}}" />
+      </div>
+      <ion-card-header>
+          <ion-card-title *ngIf="IsUserIdentified==0">{{translation.trans('identification','Status_1')}}</ion-card-title>
+          <ion-card-title *ngIf="IsUserIdentified==1">{{translation.trans('identification','CheckingDocument')}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="IdentificationForm" (ngSubmit)="UploadDocument(IdentificationForm.value)">
+          <ion-list>
+            <ion-item lines="none">
+              <ion-label position="stacked">{{translation.trans('identification','DocumentType')}}</ion-label>
+              <ion-radio-group formControlName="document_type" (ionChange)="SelectedDocumentType($event)">
+                <ion-item lines="none">
+                  <ion-label>{{translation.trans('identification','DocumentType_1')}}</ion-label>
+                  <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="Passport"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label>{{translation.trans('identification','DocumentType_2')}}</ion-label>
+                  <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="Identification Card"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+              <!--VALIDATION-->
+              <div *ngFor="let validation of validation_messages.document_type">
+                <div class="validation-errors">
+                  <ng-container>
+                    <div class="error-message" *ngIf="IdentificationForm.get('document_type').hasError(validation.type) && (IdentificationForm.get('document_type').dirty || IdentificationForm.get('document_type').touched)">{{ validation.message }}</div>
+                  </ng-container>
+                </div>
+              </div>
+              <!--VALIDATION-->
+            </ion-item>
+            <ion-item lines="none" *ngIf="DocumentType == 'Passport'">
+              <ion-label position="stacked">{{translation.trans('identification','InstructionPassport_Full')}}</ion-label>
+              <app-multi-file-upload-passport></app-multi-file-upload-passport>
+            </ion-item>
+            <ion-item lines="none" *ngIf="DocumentType == 'Identification Card'">
+              <ion-label position="stacked">{{translation.trans('identification','InstructionIDCard_1_Full')}}</ion-label>
+              <app-multi-file-upload-identification-front></app-multi-file-upload-identification-front>
+            </ion-item>
+            <ion-item lines="none" *ngIf="DocumentType == 'Identification Card'">
+              <ion-label position="stacked">{{translation.trans('identification','InstructionIDCard_2_Full')}}</ion-label>
+              <app-multi-file-upload-identification-back></app-multi-file-upload-identification-back>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-button color="primary" type="submit" [disabled]="!IdentificationForm.valid">{{translation.trans('identification','Save')}}</ion-button>
+            </ion-item>
+          </ion-list>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

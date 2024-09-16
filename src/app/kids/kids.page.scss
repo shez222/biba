@@ -1,0 +1,37 @@
+ion-content {
+  .mainDiv {
+    ion-grid {
+      background-color: var(--white);
+      border-radius: 25px 0 25px 0;/*MAULIK::BEFORE::5px*/
+      border: 2px solid #e0e0e0;/*MAULIK::ADDED*/
+      padding: 12px;
+      margin: 0 0 10px;
+      ion-row {
+        ion-col {
+          padding: 0 4px 4px 0px;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    color: var(--txt-gray);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    position: relative;
+                    ion-button {
+                      &[fill="clear"] {
+                        --padding-top: 0px;
+                      --padding-bottom: 0px;
+                      --padding-start: 0px;
+                      --padding-end: 0px;
+                      min-height: fit-content;
+                      min-height: -webkit-fit-content;
+                      min-height: -moz-fit-content;
+                      min-height: -ms-fit-content;
+                      min-height: -o-fit-content;
+                      margin: 0;
+                      margin-right: 5px;
+                      }
+                    }
+        }
+      }
+    }
+  }
+}

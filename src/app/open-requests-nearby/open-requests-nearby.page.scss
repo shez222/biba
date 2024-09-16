@@ -1,0 +1,129 @@
+ion-content {
+    ion-accordion-group ion-accordion{
+        border:none;
+        background: transparent;
+        ion-grid {
+            position: relative;
+            padding: 0;
+            ion-row{
+                ion-col {
+                    position: relative;
+                    margin: 0 0 8px;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    color: var(--txt-gray);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    background-color: var(--white) !important;
+                    border-radius: 10px;
+                    ion-label{
+                        &.make-bold{
+                            font-size: 15px;
+                            font-weight: 500;
+                            padding: 5px 0 0 10px;
+                        }
+                    }
+                    ion-radio-group {    
+                        padding: 0;                
+                        ion-item {
+                            margin: 0 0 8px 8px;
+                            font-size: 15px;
+                            &:last-child {
+                                margin: 0;
+                            }
+                            ion-label {
+                                margin: 0;
+                                font-weight: 400;
+                            }
+                        }
+                        ion-label {
+                            margin: 0;
+                        }
+                    }
+                    ion-radio {
+                        width: 22px;
+                        height: 22px;
+                        --color: var(--txt-gray);
+                        --color-checked: var(--primary);
+                        --inner-border-radius: 50%;
+                        --border-radius: 50%;
+                        border-radius: 50%;
+                        background-color: var(--white);
+                        &.md {
+                            --color-checked: #c599ff;
+                        }
+                        &.radio-checked {
+                            background-color: var(--white);
+                        }
+                        &.md {
+                            &.radio-checked {
+                                background-color: transparent;
+                            }
+                        }
+                        margin: 0;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .mainDiv {
+        #MAP {
+			width:100%;
+			height: calc(100vh - 150px);
+		}
+        ion-item {
+            position: relative;
+            margin: 0 0 20px;
+            &.no-margin{
+                margin: 0;
+            }
+        }
+        h1 {
+            width: 100%;
+            text-align: center;
+            position: relative;
+            font-size: 26px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Baloo);
+        }
+        h2 {
+            width: 100%;
+            position: relative;
+            font-size: 24px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Baloo);
+        }
+        h3 {
+            width: 100%;
+            padding: 0px;
+            margin: 15px 0 0 0;
+            text-align: center;
+            position: relative;
+            font-size: 22px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Baloo);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            ion-text {
+                color: var(--primary);
+            }
+        }
+        #MAP {
+            margin: 14px 0 0;
+            width:100%;
+            height: calc(100vh - 150px - 100px);
+            min-height: 400px;
+        }
+    }    
+}
+ion-icon{
+    padding:0;
+    margin:0;
+    width:90%;
+    height:90%;
+}

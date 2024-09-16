@@ -1,0 +1,282 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title *ngIf="RequestID == 0">{{translation.trans('request-add','ScreenTitleAdd')}}</ion-title>
+    <ion-title *ngIf="RequestID > 0">{{translation.trans('request-add','ScreenTitleEdit')}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="DismissModal()">
+        <ion-icon slot="icon-only" color="danger" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="mainDiv">
+    <form [formGroup]="NewRequestForm" (ngSubmit)="AddRequest(NewRequestForm.value)">
+      <ion-input type="hidden" formControlName="latitude" class="hide-me"></ion-input>
+      <ion-input type="hidden" formControlName="longitude" class="hide-me"></ion-input>
+      <ion-input type="hidden" formControlName="address" class="hide-me"></ion-input>
+      <ion-input type="hidden" formControlName="street" class="hide-me"></ion-input>
+      <ion-input type="hidden" formControlName="zipcode" class="hide-me"></ion-input>
+      <ion-input type="hidden" formControlName="city" class="hide-me"></ion-input>
+      <ion-input type="hidden" formControlName="country_code" class="hide-me"></ion-input>
+      <ion-list>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-input label="{{translation.trans('request-add','Title')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('request-add','TitlePlaceholder')}}" formControlName="title"></ion-input>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.title">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="NewRequestForm.get('title').hasError(validation.type) && (NewRequestForm.get('title').dirty || NewRequestForm.get('title').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none">
+          <ion-textarea label="{{translation.trans('request-add','Description')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('request-add','DescriptionPlaceholder')}}" formControlName="description" rows="5"></ion-textarea>
+        </ion-item>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-input label="{{translation.trans('request-add','MaxAmount')}}" labelPlacement="stacked" type="text" placeholder="{{translation.trans('request-add','MaxAmount')}}" formControlName="max_amount"></ion-input>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.max_amount">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="NewRequestForm.get('max_amount').hasError(validation.type) && (NewRequestForm.get('max_amount').dirty || NewRequestForm.get('max_amount').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-input label="{{translation.trans('request-add','SDate')}}" labelPlacement="stacked" type="text" placeholder="{{translation.trans('request-add','SDate')}}" formControlName="from_date" id="FromDate"></ion-input>
+          <ion-modal class="white-background" trigger="FromDate" size="cover" (ionChange)="DateSelectedFrom($event)">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>{{translation.trans('request-add','SDate')}}</ion-title>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content>
+                <ion-datetime
+                  [firstDayOfWeek]="1"
+                  size="cover"
+                  [showDefaultButtons]="true"
+                  presentation="date-time"
+                  [(ngModel)]="CurrentDateForPicker"
+                  [ngModelOptions]="{standalone: true}"
+                  minuteValues="0,15,30,45"
+                  min="{{RequestID > 0 ? CurrentDateForPicker : MinimumDateForPicker}}"
+                  max="{{MaximumDateForPicker}}">
+                </ion-datetime>
+            </ion-content>
+            </ng-template>
+          </ion-modal>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.from_date">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="NewRequestForm.get('from_date').hasError(validation.type) && (NewRequestForm.get('from_date').dirty || NewRequestForm.get('from_date').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-input label="{{translation.trans('request-add','EDate')}}" labelPlacement="stacked" type="text" placeholder="{{translation.trans('request-add','EDate')}}" formControlName="to_date" id="ToDate"></ion-input>
+          <ion-modal class="white-background" trigger="ToDate" size="cover" (ionChange)="DateSelectedTo($event)">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>{{translation.trans('request-add','EDate')}}</ion-title>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content>
+                <ion-datetime
+                              [firstDayOfWeek]="1"
+                              size="cover"
+                              [showDefaultButtons]="true"
+                              presentation="date-time"
+                              [(ngModel)]="DayAfterCurrentDateForPicker"
+                              [ngModelOptions]="{standalone: true}"
+                              minuteValues="0,15,30,45"
+                              min="{{CurrentDateForPicker}}"
+                              max="{{MaximumDateForPicker}}">
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.to_date">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="NewRequestForm.get('to_date').hasError(validation.type) && (NewRequestForm.get('to_date').dirty || NewRequestForm.get('to_date').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <!--ON EDIT ONLY STARTS-->
+        <ion-item class="item-with-icon" lines="none" (click)="AddKid(0,'','')" *ngIf="!hasKids">
+          <div class="icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 21.599 21.598" width="21.599px" height="21.598px" fill="var(--secondary)" style="enable-background:new 0 0 21.599 21.598;">
+              <g>
+                <path d="M10.799,0c5.963,0,10.799,4.836,10.799,10.799   c0,5.963-4.836,10.799-10.799,10.799S0,16.762,0,10.799C0,4.836,4.836,0,10.799,0L10.799,0z M5.158,8.212   c-0.2-4.287-2.308,1.481-4.005,2.16c-0.24,5.459,4.169,10.083,9.646,10.083c5.333,0,9.656-4.324,9.656-9.656   c0-2.269-1.791-4.735-4.236-2.408c-0.941,0.895-2.271,1.616-2.474,0.164c-0.23-1.652-0.487-2.047-1.846-0.166   c-3.582,4.957-1.116-4.167-3.919-0.454C6.798,9.416,5.273,10.684,5.158,8.212z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                <path d="M16.391,15.099c-0.801,2.318-3.002,3.983-5.592,3.983   c-2.59,0-4.791-1.665-5.592-3.983H5.56c1.048,1.431,3.135,2.381,5.239,2.381c2.104,0,4.286-0.95,5.335-2.381H16.391z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                <circle cx="7.293" cy="12.431" r="0.761" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                <circle cx="14.489" cy="12.431" r="0.761" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+              </g>
+            </svg>
+          </div>
+          <ion-label>{{translation.trans('common-requests-block','AddKid')}}</ion-label>
+        </ion-item>
+        <ion-item lines="none" *ngIf="ResponseDataKids.length > 0">
+          <ion-grid class="border">
+            <ion-row>
+              <ion-col size="12" class="align-center text-center make-bold">{{translation.trans('common-requests-block','KidsCanBeAdded')}}</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let Kid of ResponseDataKids">
+              <ion-col size="2">
+                <ion-checkbox [(ngModel)]="Kid.selected" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+              </ion-col>
+              <ion-col size="5" (click)="handleKidClick(Kid.id)">{{ Kid.name }}</ion-col>
+              <ion-col size="5" (click)="handleKidClick(Kid.id)">
+                <span *ngIf="Kid.year != ''">{{ Kid.year }}</span>
+                <span *ngIf="Kid.month != ''"><br *ngIf="Kid.year != ''"/>{{ Kid.month }}</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <!--ON EDIT ONLY STARTS-->
+        <ion-item lines="none">
+          <ion-list>
+            <ion-item lines="none" class="mb-0">
+              <ion-label (click)="ShowInfo()">{{translation.trans('request-add','Visibility')}}<ion-icon name="alert-circle-outline"></ion-icon>
+                <span [ngClass]="{'required-icon-invalid': NewRequestForm.hasError('atLeastOneCheckboxChecked'), 'required-icon-valid': !NewRequestForm.hasError('atLeastOneCheckboxChecked')}">
+                <ion-icon name="medical" fill="danger"></ion-icon>
+              </span>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+
+              <ion-item class="item-grey-background" lines="none">
+                <ion-checkbox color="primary"
+                              justify="start"
+                              labelPlacement="end"
+                              slot="start"
+                              formControlName="public_visibility">{{translation.trans('request-add','Public')}}</ion-checkbox>
+              </ion-item>
+              <ion-item class="item-grey-background" lines="none">
+                <ion-checkbox color="primary"
+                              justify="start"
+                              labelPlacement="end"
+                              slot="start"
+                              formControlName="group_visibility">{{translation.trans('request-add','Group')}}</ion-checkbox>
+              </ion-item>
+            </ion-item>
+            <ion-item lines="none" [ngClass]="{'hide-me' : !NewRequestForm.get('group_visibility').value}">
+              <ion-list>
+                <ion-item lines="none" class="mb-0">
+                  <ion-label>{{translation.trans('request-add','Groups')}}</ion-label>
+                </ion-item>
+                <div *ngFor="let group of ResponseDataGroup; let i = index;" class="group-names" [ngClass]="{'hideme' : group.total_members == 0}">
+                  <ion-item lines="none" *ngIf="group.total_members > 0">
+                      <ion-checkbox
+                        color="primary"
+                        justify="start"
+                        slot="start"
+                        labelPlacement="end"
+                        value="{{group.id}}"
+                        [checked]="group.checked"
+                        (ionChange)="SelectedGroups(i,$event)">{{group.name}}</ion-checkbox>
+                  </ion-item>
+                </div>
+                <ion-item class="item-with-icon" lines="none" (click)="AddGroup()" *ngIf="!hasGroups && NewRequestForm.get('group_visibility').value">
+                  <div class="icon">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24" width="24px" height="24px" fill="var(--secondary)" style="enable-background:new 0 0 24 24;">
+                      <g>
+                        <circle cx="12" cy="6" r="4" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                        <path d="M12 12c-5.523 0-10 4.477-10 10h20c0-5.523-4.477-10-10-10z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                        <circle cx="18" cy="9" r="3" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                        <path d="M18 13.5c-3.59 0-6.5 2.91-6.5 6.5h13c0-3.59-2.91-6.5-6.5-6.5z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                        <circle cx="6" cy="9" r="3" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                        <path d="M6 13.5c-3.59 0-6.5 2.91-6.5 6.5h13c0-3.59-2.91-6.5-6.5-6.5z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <ion-label>{{translation.trans('common-requests-block','AddGroup')}}</ion-label>
+                </ion-item>
+                <ion-item lines="none" *ngIf="CountSelectionToTrue == 0 && NewRequestForm.get('group_visibility').value">
+                  <ion-text color="danger">
+                    {{translation.trans('request-add','ErrorGroup')}}
+                  </ion-text>
+                </ion-item>
+              </ion-list>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-list class="no-padding">
+            <ion-item lines="none" class="mb-0">
+              <ion-label>{{translation.trans('request-add','Location')}}</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <span class="validation">
+                <ion-icon name="medical" fill="danger"></ion-icon>
+              </span>
+              <ion-radio-group formControlName="location" (ionChange)="SelectedLocation($event)">
+                <ion-item lines="none">
+                  <ion-label>{{translation.trans('request-add','Home')}}</ion-label>
+                  <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="home"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label>{{translation.trans('request-add','Other')}}</ion-label>
+                  <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="other"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+        <ion-item lines="none" class="mb-20">
+          <span class="required-top-right-icon-invalid" [ngClass]="{'hide-me' : address}">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-searchbar search-icon="business"
+                         [disabled]="(RequestAddressType === 'home' && loadedAddress) || !GoogleAutocomplete"
+                         [(ngModel)]="AutoComplete!.input"
+                         [ngModelOptions]="{standalone: true}"
+                         (keyup)="isSearchActive = true"
+                         (ionInput)="UpdateSearchResults()"
+                         placeholder="Address"
+                         (ionClear)="ClearAutocomplete()"
+                         (ionBlur)="isSearchActive = false"
+                         [debounce]="2000">
+          </ion-searchbar>
+        </ion-item>
+        <ion-item *ngIf="isSearchActive">
+          <ion-progress-bar type="indeterminate"></ion-progress-bar>
+        </ion-item>
+        <ion-list [ngClass]="{'hide-me' : AutoCompleteItems.length == 0}" class="search-list">
+          <ion-item *ngFor="let item of AutoCompleteItems" tappable (click)="SelectSearchResult(item)">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+        <ion-item lines="none">
+          <ion-button color="primary" type="submit" [disabled]="!NewRequestForm.valid || (CountSelectionToTrue == 0 && NewRequestForm.get('group_visibility').value) || IsSelectedLocationIsOtherAndAddressFilled != false">{{translation.trans('request-add','PostRequest')}}</ion-button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

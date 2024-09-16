@@ -1,0 +1,79 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Nearby</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 171" width="210" height="171">
+          <path id="line 1" fill="#5734ac" d="m0 5c0-2.8 2.2-5 5-5h150c2.8 0 5 2.2 5 5v12c0 2.8-2.2 5-5 5h-150c-2.8 0-5-2.2-5-5z"/>
+          <path id="line 2" fill="#5734ac" d="m0 80c0-2.8 2.2-5 5-5h200c2.8 0 5 2.2 5 5v12c0 2.8-2.2 5-5 5h-200c-2.8 0-5-2.2-5-5z"/>
+          <path id="line 3" fill="#5734ac" d="m0 154c0-2.8 2.2-5 5-5h100c2.8 0 5 2.2 5 5v12c0 2.8-2.2 5-5 5h-100c-2.8 0-5-2.2-5-5z"/>
+        </svg>
+        <app-notification-badge></app-notification-badge>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!--REFRESHER-->
+	<!--<ion-refresher slot="fixed" (ionRefresh)="ShowUpdatedContent($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>-->
+	<!--REFRESHER-->
+  <div class="mainDiv">
+    <ion-accordion-group #AccordionGroup>
+    <ion-accordion value="search-accordian">
+      <ion-item slot="header" lines="none" class="no-margin">
+        <ion-label text-wrap class="ion-text-wrap">{{translation.trans('open-requests-nearby','SearchLabel')}}</ion-label>
+      </ion-item>
+      <div class="accordion-cnt" slot="content">
+        <form [formGroup]="SignInForm" (ngSubmit)="SignIn(SignInForm.value)">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-input type="number" inputmode="number" formControlName="range_in_km" label="{{translation.trans('open-requests-nearby','FilterWithKM')}}" labelPlacement="stacked" placeholder="30"></ion-input>
+              </ion-col>
+              <ion-col size="12">
+                <ion-input type="number" inputmode="number" formControlName="min_price" label="{{translation.trans('open-requests-nearby','FilterWithPrice')}}" labelPlacement="stacked" placeholder="0"></ion-input>
+              </ion-col>
+              <ion-col size="12">
+                <ion-label class="make-bold">{{translation.trans('open-requests-nearby','FilterWithChildPreference')}}</ion-label>
+                <ion-radio-group formControlName="kids_creteria">
+                  <ion-item lines="none">
+                    <ion-label>{{translation.trans('open-requests-nearby','FilterWithChildPreference_1')}}</ion-label>
+                    <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="0"></ion-radio>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-label>{{translation.trans('open-requests-nearby','FilterWithChildPreference_2')}}</ion-label>
+                    <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="1"></ion-radio>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-label>{{translation.trans('open-requests-nearby','FilterWithChildPreference_3')}}</ion-label>
+                    <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="2"></ion-radio>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-label>{{translation.trans('open-requests-nearby','FilterWithChildPreference_4')}}</ion-label>
+                    <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="3"></ion-radio>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-label>{{translation.trans('open-requests-nearby','FilterWithChildPreference_5')}}</ion-label>
+                    <ion-radio color="primary" justify="start" labelPlacement="start" slot="start" value="4"></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button size="full" expand="block" color="primary" type="submit" [disabled]="!SignInForm.valid">{{translation.trans('open-requests-nearby','SearchButton')}}</ion-button>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button size="full" expand="block" color="danger" type="button" (click)="ResetSearch()">{{translation.trans('open-requests-nearby','ResetButton')}}</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+    </ion-accordion>
+    </ion-accordion-group>
+    <!--<h3>{{translation.trans('open-requests-nearby','Google')}} <ion-text (click)="Apply()">Apply</ion-text></h3>-->
+    <div #MAP id="MAP"></div>
+  </div>
+</ion-content>

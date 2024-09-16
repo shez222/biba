@@ -1,0 +1,143 @@
+<ion-content [fullscreen]="true">
+  <!--SIGNUP VERIFICATION STARTS-->
+  <form *ngIf="AlertType=='SignUp'" [formGroup]="SignUpVerificationForm" (ngSubmit)="SignupVerification(SignUpVerificationForm.value)">
+    <ion-list>
+      <ion-list-header>{{translation.trans('alert-to-show','Verification','SignUPV')}}</ion-list-header>
+      <ion-item lines="none">
+        <p>{{translation.trans('alert-to-show','P_1','SignUPV')}}</p>
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input type="number" inputmode="number" placeholder="{{translation.trans('alert-to-show','VerificationCode','SignUPV')}}" formControlName="verification_code"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of signup_validation_messages.verification_code">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpVerificationForm.get('verification_code').hasError(validation.type) && (SignUpVerificationForm.get('verification_code').dirty || SignUpVerificationForm.get('verification_code').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button color="" type="submit" class="log-btn" [disabled]="!SignUpVerificationForm.valid">{{translation.trans('alert-to-show','Verify','SignUPV')}}</ion-button>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button color="" type="button" class="log-btn" (click)="resendCode()">{{translation.trans('alert-to-show','Resend','SignUPV')}}</ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+  <!--SIGNUP VERIFICATION ENDS-->
+  <!--ALERT ON SERVICE REQUEST APPLIED STARTS-->
+  <ion-list *ngIf="AlertType=='Applied'">
+    <ion-list-header>{{translation.trans('alert-to-show','ApplySent','Applied')}}</ion-list-header>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p>{{translation.trans('alert-to-show','P_1','Applied')}}</p>
+        <p>{{translation.trans('alert-to-show','P_2','Applied')}}</p>
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="primary" (click)="addToCalendar(RequestID)">{{translation.trans('alert-to-show','AddToCal_1','Applied')}} {{translation.trans('alert-to-show','AddToCal_2','Applied')}}</ion-button>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="danger" (click)="DismissModal()">{{translation.trans('alert-to-show','Ok','Applied')}}</ion-button>
+    </ion-item>
+  </ion-list>
+  <!--ALERT ON SERVICE REQUEST APPLIED ENDS-->
+  <!--VISIBILITY INFORMATION STARTS-->
+  <ion-list *ngIf="AlertType=='VisibilityInformation'">
+    <ion-list-header>{{translation.trans('alert-to-show','Title','VisibilityInformation')}}</ion-list-header>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p><strong>{{translation.trans('alert-to-show','P_1','VisibilityInformation')}}</strong></p>
+        <p>{{translation.trans('alert-to-show','P_2','VisibilityInformation')}}</p>
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p><strong>{{translation.trans('alert-to-show','P_3','VisibilityInformation')}}</strong></p>
+        <p>{{translation.trans('alert-to-show','P_4','VisibilityInformation')}}</p>
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="danger" (click)="DismissModal()">{{translation.trans('alert-to-show','Close','VisibilityInformation')}}</ion-button>
+    </ion-item>
+  </ion-list>
+  <!--VISIBILITY INFORMATION ENDS-->
+  <!--IDENTIFICATION INFORMATION ENDS-->
+  <ion-list *ngIf="AlertType=='Identification'">
+    <ion-list-header>{{translation.trans('alert-to-show','P_1','Identification')}}</ion-list-header>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p>{{translation.trans('alert-to-show','P_2','Identification')}}</p>
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="primary" (click)="TakeMeThere()">{{translation.trans('alert-to-show','TakeMeTheir','Identification')}}</ion-button>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="danger" (click)="DoItLater()">{{translation.trans('alert-to-show','Later','Identification')}}</ion-button>
+    </ion-item>
+  </ion-list>
+  <!--IDENTIFICATION INFORMATION ENDS-->
+  <!--INCOMPLETE PROFILE INFORMATION STARTS-->
+  <ion-list *ngIf="AlertType=='IncompleteProfile'">
+    <ion-list-header>{{translation.trans('alert-to-show','P_1','IncompleteProfile')}}</ion-list-header>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p>{{translation.trans('alert-to-show','P_2','IncompleteProfile')}}</p>
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="primary" (click)="CompleteProfile()">{{translation.trans('alert-to-show','TakeMeTheir','IncompleteProfile')}}</ion-button>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button color="danger" (click)="DoItLater()">{{translation.trans('alert-to-show','Later','IncompleteProfile')}}</ion-button>
+    </ion-item>
+  </ion-list>
+  <!--INCOMPLETE PROFILE INFORMATION ENDS-->
+  <!--OFFLINE STARTS-->
+  <ion-list *ngIf="AlertType=='OFFLINE'">
+    <ion-list-header>{{translation.trans('OFFLINE','P_1')}}</ion-list-header>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p>{{translation.trans('OFFLINE','P_2')}}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+  <!--OFFLINE ENDS-->
+  <!--NOTIFICATION DETAIL STARTS-->
+  <ion-list *ngIf="AlertType=='NotificationDetail'" class="requests-common">
+    <ion-list-header>{{ResultData.title}}</ion-list-header>
+    <ion-item lines="none">
+      <div class="flowCol">
+        <p>{{ResultData.notification}}</p>
+      </div>
+    </ion-item>
+    <ion-item slot="header" lines="none" *ngIf="RequestResultData.length != 0" class="request-detail" (click)="TakeMeToPage(ResultData.event, RequestResultData?.id)">
+      <ion-thumbnail *ngIf="RequestResultData.user.image!=''">
+        <img src="{{RequestResultData.user.image}}">
+      </ion-thumbnail>
+      <ion-thumbnail *ngIf="RequestResultData.user.image==''">
+        <img src="../assets/images/no-image-available.png">
+      </ion-thumbnail>
+      <ion-label text-wrap class="ion-text-wrap">
+        {{RequestResultData.title}}
+        <ion-text>{{RequestResultData.formatted_from_date}}&nbsp;({{RequestResultData.day_difference}})<br />{{RequestResultData.user.first_name}}&nbsp;{{RequestResultData.user.surname}}&nbsp;&dash;&nbsp;{{RequestResultData.city}}</ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button shape="round" color="danger" (click)="DismissModal()">{{translation.trans('alert-to-show','Dismiss', 'NotificationDetail')}}</ion-button>
+    </ion-item>
+    <ion-item lines="none" *ngIf="ResultData.event && ResultData.event!='group_invitation_rejected'">
+      <ion-button shape="round" color="primary" (click)="TakeMeToPage(ResultData.event, RequestResultData?.id)">{{translation.trans('alert-to-show', 'TakeMeTheir',ResultData.event)}}</ion-button>
+    </ion-item>
+    <ion-item lines="none" *ngIf="ResultData.event && ResultData.event == 'reward_a_application'">
+      <ion-button shape="round" color="warning" (click)="addToCalendar(RequestResultData.id)">{{translation.trans('alert-to-show','AddToCal_1','Applied')}} {{translation.trans('alert-to-show','AddToCal_2','Applied')}}</ion-button>
+    </ion-item>
+  </ion-list>
+  <!--NOTIFICATION DETAIL ENDS-->
+</ion-content>

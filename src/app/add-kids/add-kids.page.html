@@ -1,0 +1,61 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title *ngIf="KidID == 0">{{translation.trans('add-kids','ScreenTitleAdd')}}</ion-title>
+    <ion-title *ngIf="KidID > 0">{{translation.trans('add-kids','ScreenTitleEdit')}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="DismissModal()">
+        <ion-icon slot="icon-only" color="danger" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="AddKidForm" (ngSubmit)="AddKid(AddKidForm.value)">
+    <ion-list>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('add-kids','Name')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('add-kids','Name')}}" formControlName="kid_name"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.kid_name">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="AddKidForm.get('kid_name').hasError(validation.type) && (AddKidForm.get('kid_name').dirty || AddKidForm.get('kid_name').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('add-kids','DOB')}}" labelPlacement="stacked" type="text" placeholder="{{translation.trans('add-kids','DOB')}}" formControlName="kid_dob" id="BirthDate"></ion-input>
+        <ion-popover trigger="BirthDate"  (ionChange)="DateSelected($event)">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              [(ngModel)]="CurrentDateForPicker"
+              [ngModelOptions]="{standalone: true}"
+              [preferWheel]="true"
+              [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.kid_dob">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="AddKidForm.get('kid_dob').hasError(validation.type) && (AddKidForm.get('kid_dob').dirty || AddKidForm.get('kid_dob').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button color="" type="submit" [disabled]="!AddKidForm.valid">{{translation.trans('add-kids','Save')}}</ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

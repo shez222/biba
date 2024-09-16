@@ -1,0 +1,238 @@
+ion-content {
+    .mainDiv {
+        .title {
+            margin: 22px 0 10px;
+        }
+        h1 {
+            width: 100%;
+            text-align: center;
+            position: relative;
+            font-size: 26px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Baloo);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            ion-text {
+                color: var(--primary);
+            }
+        }
+        h2 {
+            width: 100%;
+            position: relative;
+            font-size: 24px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Baloo);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            ion-text {
+                color: var(--primary);
+            }
+        }
+        h3 {
+            width: 100%;
+            padding: 0px;
+            margin: 0px;
+            text-align: center;
+            position: relative;
+            font-size: 22px;
+            line-height: 1.2;
+            color: var(--txt-gray);
+            font-family: var(--font-Baloo);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            ion-text {
+                color: var(--primary);
+            }
+        }
+        ion-list {
+            position: relative;
+            padding: 0;
+            &.hide-me{
+                display: none;
+            }
+            ion-item {
+                position: relative;
+                margin: 0 0 8px;
+                font-size: 16px;
+                line-height: 1.2;
+                color: var(--txt-gray);
+                font-family: var(--font-Balsamiq_Sans);
+                font-weight: 400;
+                &.mb-0 {
+                    margin-bottom: 0px !important;
+                    --min-height: fit-content;
+                    --min-height: -webkit-fit-content;
+                    --min-height: -moz-fit-content;
+                    --min-height: -ms-fit-content;
+                    --min-height: -o-fit-content;
+                }
+                &.btn-item {
+                    margin-top: 25px;
+                }
+                ion-list {
+                    padding: 20px 0 0;
+                    width: 100%;
+                }
+                ion-grid {
+                    margin: 12px 0 0;
+                    background-color: var(--white);
+                    padding: 8px;
+                    border-radius: 5px;
+                }
+                ion-radio-group {
+                  ion-item {
+                    margin: 0 15px 8px 0;/*BEFORE::0 0 8px;*/
+                    width: 45%;/*MAULIK::ADDED*/
+                    display: inline-flex;/*MAULIK::ADDED*/
+                    background: #ebebeb;/*MAULIK::ADDED*/
+                    padding: 5px;/*MAULIK::ADDED*/
+                    height: 50px;/*MAULIK::ADDED*/
+                    border-radius: 20px;/*MAULIK::ADDED*/
+                    &:last-child {
+                      margin: 0;
+                    }
+                    ion-label {
+                      margin: 0;
+                    }
+                  }
+                  ion-label {
+                    margin: 0;
+                  }
+                }
+                ion-label {
+                    font-size: 16px;
+                    line-height: normal;
+                    color: var(--txt-gray);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                }
+                ion-checkbox {
+                    margin-inline: 0px !important;
+                }
+                ion-radio {
+                    margin: 0;
+                    margin-right: 10px;
+                }
+                ion-button {
+                    width: 100%;
+                    margin: 0;
+                    height: 55px;
+                    line-height: 55px;
+                    border-radius: 5px;
+                    --border-radius: 5px;
+                    font-size: 20px;
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    word-break: break-all;
+                    white-space: break-spaces;
+                    @media(max-width:374px) {
+                        font-size: 17px;
+                        height: 44px;
+                        line-height: 44px;
+                    }
+                    ion-icon, svg {
+                        width: 27px;
+                        height: 27px;
+                        margin-right: 8px;
+                    }
+                    &[fill="clear"] {}
+                    &.icon-only {
+                        --padding-top: 0;
+                        --padding-start: 0;
+                        --padding-end: 0;
+                        --padding-bottom: 0;
+                        width: auto;
+                        height: auto;
+                        line-height: normal;
+                        aspect-ratio: 1/1;
+                        ion-icon {
+                            margin: 0 !important;
+                        }
+                    }
+                }
+                &.hide-me{
+                    display: none;
+                }
+                &.show-me{
+                    display: block;
+                }
+            }
+        }
+        ion-grid {
+            background-color: var(--white);
+            border-radius: 25px 0 25px 0;/*MAULIK::BEFORE::5px*/
+            border: 2px solid #e0e0e0;/*MAULIK::ADDED*/
+            padding: 12px;
+            margin: 0 0 10px;
+            ion-row {
+                align-items: center;
+                ion-col {
+                    padding: 0 4px 4px 0px;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    color: var(--txt-gray);
+                    font-family: var(--font-Balsamiq_Sans);
+                    font-weight: 400;
+                    position: relative;
+                    &.gray {
+                      color: gray;
+                    }
+                    ion-button {
+                        &.icon-only {
+                            --padding-top: 0px;
+                            --padding-bottom: 0px;
+                            --padding-start: 0px;
+                            --padding-end: 0px;
+                            min-height: fit-content;
+                            min-height: -moz-fit-content;
+                            min-height: -ms-fit-content;
+                            min-height: -o-fit-content;
+                            margin: 0;
+                            margin-right: 5px;
+                            /*BEFORE::
+                            --padding-top: 0;
+                            --padding-start: 0;
+                            --padding-end: 0;
+                            --padding-bottom: 0;
+                            margin-top: 0px;
+                            width: auto;
+                            aspect-ratio: 1/1;
+                            ::BEFORE*/
+                            ion-icon {
+                                margin: 0 !important;
+                            }
+                        }
+                        &[fill="clear"] {}
+                    }
+                }
+                &.btnRow {
+                    gap: 12px;
+                    justify-content: flex-end;
+                    ion-col {
+                        padding: 8px 0 0;
+                        max-width: fit-content;
+                        max-width: -webkit-fit-content;
+                        max-width: -moz-fit-content;
+                        max-width: -ms-fit-content;
+                        max-width: -o-fit-content;
+                        min-width: fit-content;
+                        min-width: -webkit-fit-content;
+                        min-width: -moz-fit-content;
+                        min-width: -ms-fit-content;
+                        min-width: -o-fit-content;
+                        width: fit-content;
+                        width: -webkit-fit-content;
+                        width: -moz-fit-content;
+                        width: -ms-fit-content;
+                        width: -o-fit-content;
+                    }
+                }
+            }
+        }
+    }
+}

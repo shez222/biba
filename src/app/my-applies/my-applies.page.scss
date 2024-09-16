@@ -1,0 +1,88 @@
+svg.verification-icon {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    width: 20px;
+    height: 20px;
+}
+ion-accordion-group ion-accordion ion-item ion-icon{
+  /*background-color: var(--secondary);
+  --background-color: var(--secondary);*/
+  /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px;
+  &.applied{
+    background-color: var(--secondary);
+    --background-color: var(--secondary);
+    color:#FFFFFF;
+  }
+  &.declined{
+    background-color: var(--secondary);
+    --background-color: var(--secondary);
+    color:#FFFFFF;
+  }
+  &.rewarded{
+    background-color: #42d77d;
+    --background-color: #42d77d;
+    color:#FFFFFF;
+  }
+  &.rejected{
+    background-color: #ed576b;
+    --background-color: #ed576b;
+    color:#FFFFFF;
+  }
+}
+ion-accordion-group ion-accordion ion-item ion-badge{
+    background-color: var(--secondary);
+    --background-color: var(--secondary);
+    /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+    border-radius: 20px;
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    &.applied{
+        background-color: var(--secondary);
+        --background-color: var(--secondary);
+        color:#FFFFFF;
+    }
+    &.declined{
+        background-color: var(--secondary);
+        --background-color: var(--secondary);
+        color:#FFFFFF;
+    }
+    &.rewarded{
+        background-color: #42d77d;
+        --background-color: #42d77d;
+    }
+    &.rejected{
+        background-color: #ed576b;
+        --background-color: #ed576b;
+    }
+}
+ion-list.requests-common .accordion-cnt ion-grid ion-row ion-col {
+	/*
+	width: fit-content;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: -ms-fit-content;
+	width: -o-fit-content;
+    min-width: fit-content;
+    min-width: -webkit-fit-content;
+	min-width: -moz-fit-content;
+	min-width: -ms-fit-content;
+	min-width: -o-fit-content;
+	*/
+    max-width: fit-content;
+    max-width: -webkit-fit-content;
+	max-width: -moz-fit-content;
+	max-width: -ms-fit-content;
+	max-width: -o-fit-content;
+}

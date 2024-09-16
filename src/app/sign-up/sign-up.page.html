@@ -1,0 +1,179 @@
+<ion-content [fullscreen]="true">
+  <div class="circle-glass one"></div>
+  <div class="circle-glass two"></div>
+  <div class="circle-glass three"></div>
+  <div class="circle-glass four"></div>
+  <form [formGroup]="SignUpForm" (ngSubmit)="SignUp(SignUpForm.value)">
+    <ion-list>
+      <ion-item lines="none">
+        <h2>{{translation.trans('sign-up','ScreenTitle')}}</h2>
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-select label="{{translation.trans('profile','Language')}}" formControlName="language" (ionChange)="changeLanguage()">
+          <ng-container *ngFor="let language of languages">
+            <ion-select-option [value]="language.code">{{language.name}}</ion-select-option>
+          </ng-container>
+        </ion-select>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.language">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('language').hasError(validation.type) && (SignUpForm.get('language').dirty || SignUpForm.get('language').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-select label="{{translation.trans('profile','ProfileType')}}" formControlName="profileType">
+          <ion-select-option value="parent">
+            {{translation.trans('profile','Parent')}}
+          </ion-select-option>
+          <ion-select-option value="babysitter">
+            {{translation.trans('profile','Babysitter')}}
+          </ion-select-option>
+          <ion-select-option value="both">
+            {{translation.trans('profile','Both')}}
+          </ion-select-option>
+        </ion-select>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.profileType">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('profileType').hasError(validation.type) && (SignUpForm.get('profileType').dirty || SignUpForm.get('profileType').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','Email')}}" labelPlacement="stacked" inputmode="email" type="email" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','Email')}}" formControlName="email"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.email">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('email').hasError(validation.type) && (SignUpForm.get('email').dirty || SignUpForm.get('email').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','Password')}}" labelPlacement="stacked" [type]="PasswordType" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','Password')}}" formControlName="password"></ion-input>
+        <svg *ngIf="PasswordIcon=='eye'" (click)='hideShowPassword()' class="pw pw-show" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg>
+        <svg *ngIf="PasswordIcon=='eye-off'" (click)='hideShowPassword()' class="pw pw-hide" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.885 14.988l3.104-3.098.011.11c0 1.654-1.346 3-3 3l-.115-.012zm8.048-8.032l-3.274 3.268c.212.554.341 1.149.341 1.776 0 2.757-2.243 5-5 5-.631 0-1.229-.13-1.785-.344l-2.377 2.372c1.276.588 2.671.972 4.177.972 7.733 0 11.985-8.449 11.985-8.449s-1.415-2.478-4.067-4.595zm1.431-3.536l-18.619 18.58-1.382-1.422 3.455-3.447c-3.022-2.45-4.818-5.58-4.818-5.58s4.446-7.551 12.015-7.551c1.825 0 3.456.426 4.886 1.075l3.081-3.075 1.382 1.42zm-13.751 10.922l1.519-1.515c-.077-.264-.132-.538-.132-.827 0-1.654 1.346-3 3-3 .291 0 .567.055.833.134l1.518-1.515c-.704-.382-1.496-.619-2.351-.619-2.757 0-5 2.243-5 5 0 .852.235 1.641.613 2.342z"/></svg>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.password">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('password').hasError(validation.type) && (SignUpForm.get('password').dirty || SignUpForm.get('password').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','FirstName')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','FirstName')}}" formControlName="firstname"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.firstname">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('firstname').hasError(validation.type) && (SignUpForm.get('firstname').dirty || SignUpForm.get('firstname').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','Surname')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','Surname')}}" formControlName="lastname"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.lastname">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('lastname').hasError(validation.type) && (SignUpForm.get('lastname').dirty || SignUpForm.get('lastname').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','Phone')}}" labelPlacement="stacked" inputmode="tel" type="tel" placeholder="+41 79 123 45 67" formControlName="phone"></ion-input>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.phone">
+          <ion-text class="validation-errors">
+            <div class="error-message" *ngIf="SignUpForm.get('phone').hasError(validation.type) && (SignUpForm.get('phone').dirty || SignUpForm.get('phone').touched)">
+              {{ validation.message }}
+            </div>
+          </ion-text>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <span class="validation">
+          <ion-icon name="medical" fill="danger"></ion-icon>
+        </span>
+        <ion-input label="{{translation.trans('common-signin-signup-fpassword-profile','DOB')}}" labelPlacement="stacked" type="text" placeholder="{{translation.trans('common-signin-signup-fpassword-profile','DOB')}}" formControlName="date_of_birth" id="DateOfBirth"></ion-input>
+        <ion-popover trigger="DateOfBirth"  (ionChange)="DateSelected($event)">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              [(ngModel)]="CurrentDateForPicker"
+              [ngModelOptions]="{standalone: true}"
+              [preferWheel]="true"
+              [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-popover>
+        <!--VALIDATION-->
+        <div *ngFor="let validation of validation_messages.date_of_birth">
+          <div class="validation-errors">
+            <ng-container>
+              <div class="error-message" *ngIf="SignUpForm.get('date_of_birth').hasError(validation.type) && (SignUpForm.get('date_of_birth').dirty || SignUpForm.get('date_of_birth').touched)">{{ validation.message }}</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--VALIDATION-->
+      </ion-item>
+      <ion-item lines="none">
+        <ion-checkbox color="primary" justify="start" labelPlacement="end" [(ngModel)]="AcceptTerms" [ngModelOptions]="{standalone: true}">{{translation.trans('sign-up','ByClicking')}}, <br />{{translation.trans('sign-up','AcceptTerms')}}.</ion-checkbox>
+      </ion-item>
+      <ion-item lines="none">
+        <a href="http://www.babysitter-app.com/gtc" target="_blank">{{translation.trans('sign-up','ReadTerms')}}</a>
+      </ion-item>
+      <ion-item lines="none" class="btn-item">
+        <ion-button color="" type="submit" class="log-btn" [disabled]="!SignUpForm.valid || AcceptTerms !== true">{{translation.trans('sign-up','Register')}}</ion-button>
+      </ion-item>
+      <ion-item lines="none">
+        <p>{{translation.trans('sign-up','AlreadyMember_1')}} <ion-text color="primary" (click)="Login()">{{translation.trans('sign-up','AlreadyMember_2')}}</ion-text></p>
+      </ion-item>
+      <ion-item lines="none">
+        <div class="signOther">
+          <p>{{translation.trans('common-signin-signup-fpassword-profile','OR')}}</p>
+          <ion-button color="" type="button" class="facebook" (click)="FaceBookLoginORSignup()"><ion-icon slot="start" name="logo-facebook"></ion-icon>{{translation.trans('common-signin-signup-fpassword-profile','ConnectFB')}}</ion-button>
+          <ion-button color="" type="button" class="google" (click)="GoogleLoginORSignup()"><svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="48px" height="48px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>{{translation.trans('common-signin-signup-fpassword-profile','ConnectGL')}}</ion-button>
+          <ion-button color="" type="button" class="apple_ios" (click)="AppleLoginORSignup()" *ngIf="CurrentPlatform == 'ios'"><ion-icon name="logo-apple"></ion-icon>{{translation.trans('common-signin-signup-fpassword-profile','ConnectAP')}}</ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

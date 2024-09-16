@@ -1,0 +1,38 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('groups-add','ScreenTitle')}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="DismissModal()">
+        <ion-icon slot="icon-only" color="danger" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="mainDiv">
+    <form [formGroup]="NewGroupForm" (ngSubmit)="AddGroup(NewGroupForm.value)">
+      <ion-list>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-input label="{{translation.trans('groups-add','GroupName')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('groups-add','GroupNamePlaceholder')}}" formControlName="group_name"></ion-input>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.group_name">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="NewGroupForm.get('group_name').hasError(validation.type) && (NewGroupForm.get('group_name').dirty || NewGroupForm.get('group_name').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none">
+          <ion-button color="primary" type="submit" [disabled]="!NewGroupForm.valid">{{translation.trans('groups-add','AddGroup')}}</ion-button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

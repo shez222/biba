@@ -1,0 +1,81 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{translation.trans('request-to-apply','ScreenTitle')}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="DismissModal()">
+        <ion-icon slot="icon-only" color="danger" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="mainDiv">
+    <form [formGroup]="ApplyToRequestForm" (ngSubmit)="ApplyToRequest(ApplyToRequestForm.value)">
+      <ion-list>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-textarea label="{{translation.trans('request-to-apply','TextToApply')}}" labelPlacement="stacked" type="text" autocapitalize="sentences" placeholder="{{translation.trans('request-to-apply','TextToApply')}}" formControlName="text_to_apply" rows="5"></ion-textarea>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.text_to_apply">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="ApplyToRequestForm.get('text_to_apply').hasError(validation.type) && (ApplyToRequestForm.get('text_to_apply').dirty || ApplyToRequestForm.get('text_to_apply').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none" class="mb-0">
+          <ion-label>{{translation.trans('request-to-apply','TypeOfApply')}}</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-radio-group formControlName="free_or_paid" (ionChange)="SelectedFinancial($event)">
+            <ion-item lines="none">
+              <ion-label>{{translation.trans('common-requests-block','TypeOfApply_1')}}</ion-label>
+              <ion-radio color="primary" slot="start" value="1"></ion-radio>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>{{translation.trans('common-requests-block','TypeOfApply_2')}}</ion-label>
+              <ion-radio color="primary" slot="start" value="2"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.free_or_paid">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="ApplyToRequestForm.get('free_or_paid').hasError(validation.type) && (ApplyToRequestForm.get('free_or_paid').dirty || ApplyToRequestForm.get('free_or_paid').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none" *ngIf="AmountNeedToShow == true">
+          <span class="validation">
+            <ion-icon name="medical" fill="danger"></ion-icon>
+          </span>
+          <ion-input type="number" inputmode="number" placeholder="{{translation.trans('request-to-apply','Amount')}}" formControlName="amount"></ion-input>
+          <ion-label>{{translation.trans('common-requests-block','Amount_1')}}</ion-label>
+          <!--VALIDATION-->
+          <div *ngFor="let validation of validation_messages.amount">
+            <div class="validation-errors">
+              <ng-container>
+                <div class="error-message" *ngIf="ApplyToRequestForm.get('amount').hasError(validation.type) && (ApplyToRequestForm.get('amount').dirty || ApplyToRequestForm.get('amount').touched)">{{ validation.message }}</div>
+              </ng-container>
+            </div>
+          </div>
+          <!--VALIDATION-->
+        </ion-item>
+        <ion-item lines="none">
+          <ion-button color="primary" type="submit" [disabled]="!ApplyToRequestForm.valid">{{translation.trans('request-to-apply','Apply')}}</ion-button>
+          <ion-button color="danger" type="button" (click)="DismissModal()">{{translation.trans('request-to-apply','Cancle')}}</ion-button>
+        </ion-item>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>
