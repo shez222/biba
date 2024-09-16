@@ -1,0 +1,79 @@
+8.8
+<de-DE>
+- Bugfix: Der Profiltyp wird jetzt korrekt gespeichert.
+- Bugfix: Beim Anpassen des Profils traten vereinzelt Fehler auf.
+- Vereinfachte Registrierung.
+- Anfragen können nun in Gruppen und gleichzeitig öffentlich geteilt werden.
+- Vereinfachtes Erstellen von Gruppen.
+- Es wird nun angezeigt, wie viele Personen aus den Gruppen die Anfrage abgelehnt haben
+</de-DE>
+<en-GB>
+- Bugfix: Profile type is now saved correctly.
+- Bugfix: Occasional errors occurred when modifying the profile.
+- Simplified registration.
+- It is now possible to share requests in groups and publicly at the same time.
+- Easier creation of groups.
+- The number of people from groups who have declined a request is now displayed.
+</en-GB>
+
+8.7
+<de-DE>
+- Verbessertes Tastatur-Layout (weitere Updates für iOS in Kürze)
+- Datumauswahl bei Anfragen optimiert: Auswahl der Minuten jetzt nur noch 0, 15, 30, 45; Wochentag wird zusätzlich angezeigt
+- Fehlerhafte Kalendereinträge wurden korrigiert
+- Verification Code kann nun erneut gesendet werden, falls verloren oder nicht angekommen
+- Neuer Profiltyp verfügbar: Elternteil oder Babysitter
+- Spracheinstellung jetzt auch im Profil möglich
+- Kinder können nun über eine Checkbox ausgewählt werden
+- Ungelesene Nachrichten werden jetzt in der Menü-Lasche angezeigt
+</de-DE>
+<en-GB>
+- Improved keyboard layout (more updates coming soon for iOS)
+- Enhanced date selection for requests: Minute selection now limited to 0, 15, 30, 45; weekday also displayed
+- Corrected issues with calendar entries not displaying correctly
+- Verification code can now be resent if lost or not received
+- New profile type available: Parent or Babysitter
+- Language setting now available in profile
+- Children can now be selected via checkbox
+- Unread messages now displayed on the menu tab
+</en-GB>
+
+8.6
+<de-DE>
+- Neu in den Gruppen: Anzeige von ausstehenden Einladungen.
+- Laden Sie Personen nun ganz einfach per Telefonnummer ein.
+- Das Eingeben von Geburtsdaten für Kinder wurde überarbeitet. Eine benutzerfreundlichere Gestaltung ermöglicht nun eine einfachere Handhabung.
+</de-DE>
+<en-GB>
+- Groups just got better: Track your pending invites.
+- Introducing phone number invites.
+- We’ve revamped the way you enter children’s birthdates for a smoother, more intuitive experience.
+</en-GB>
+
+8.5
+<de-DE>
+- Verbesserung des Onboarding-Prozesses: Wir haben das Onboarding vereinfacht, damit du schneller und einfacher loslegen kannst.
+- Verbesserte Nachrichtendarstellung: Nachrichten Funktionen sind nun erweitert.
+- Verbesserter Identifikationsprozess: Deine Sicherheit ist uns wichtig, daher haben wir den Identifikationsprozess benutzerfreundlicher gemacht.
+- Verbesserte Texte: Wir haben die Texte in der App für eine bessere Verständlichkeit überarbeitet.
+</de-DE>
+<en-GB>
+- Improved onboarding process: We've made getting started quicker and easier than ever.
+- Enhanced notification display: Messages are enhanced.
+- Improved identification process: Your security is important to us, which is why we've made the identification more user-friendly.
+- Improved texts: We've revised the texts throughout the app for better understanding.
+</en-GB>
+
+Before
+<de-DE>
+- Neu: Bei allen Nachrichten, die eine Anfrage betreffen, wird nun die entsprechende Anfrage verlinkt.
+- Verbesserte Hilfestellung bei der Registrierung.
+- Fehler behoben, bei dem nur Schweizer Telefonnummern gültig waren.
+- Fehler behoben, bei dem einige E-Mail-Adressen nicht angenommen wurden.
+</de-DE>
+<en-GB>
+- New: All messages related to a request now link to the corresponding request.
+- Improved assistance during registration.
+- Fixed an issue where only Swiss phone numbers were considered valid.
+- Fixed an issue where some email addresses were not accepted.
+</en-GB>
